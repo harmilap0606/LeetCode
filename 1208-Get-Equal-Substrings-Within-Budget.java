@@ -1,33 +1,50 @@
 class Solution {
     public int equalSubstring(String s, String t, int maxCost) {
 
-        ArrayList<Integer> ls = new ArrayList<>();
+        // ArrayList<Integer> ls = new ArrayList<>();
 
-        for(int i = 0 ; i < s.length() ; i++){
-            int a = t.charAt(i)-'a';
-            int b = s.charAt(i)-'a';
+        // for(int i = 0 ; i < s.length() ; i++){
+        //     int a = t.charAt(i)-'a';
+        //     int b = s.charAt(i)-'a';
 
-            int c = Math.abs(a-b);
+        //     int c = Math.abs(a-b);
 
-            ls.add(c);
+        //     ls.add(c);
 
-        }
+        // }
 
-        int l = 0;
-        int max_len = 0;
-        int cost = 0;
+        // int l = 0;
+        // int max_len = 0;
+        // int cost = 0;
 
-        for(int r = 0 ; r < ls.size() ; r++){
-            cost+=ls.get(r);
+        // for(int r = 0 ; r < ls.size() ; r++){
+        //     cost+=ls.get(r);
 
-            while(cost>maxCost){
-                cost-=ls.get(l);
-                l++;
+        //     while(cost>maxCost){
+        //         cost-=ls.get(l);
+        //         l++;
+        //     }
+
+        //     max_len = Math.max(max_len,r-l+1);
+        // }
+        
+        // return max_len;
+
+
+        int left = 0;
+        int cCost = 0;
+        int maxLength = 0;
+
+        for(int right = 0 ; right < s.length() ; right++){
+            cCost += Math.abs(s.charAt(right)-t.charAt(right));
+            while(cCost>maxCost){
+                cCost -= Math.abs(s.charAt(left)-t.charAt(left));
+                left++;
             }
 
-            max_len = Math.max(max_len,r-l+1);
+            maxLength = Math.max(maxLength,right-left+1);
         }
-        
-        return max_len;
+
+        return maxLength;
     }
 }
