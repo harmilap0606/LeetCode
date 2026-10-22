@@ -1,0 +1,34 @@
+class StockSpanner {
+    Stack<Integer> prices;
+    Stack<Integer> spans;
+    public StockSpanner() {
+        prices = new Stack<>();
+        spans = new Stack<>();
+    }
+    
+    public int next(int price) {
+        int span = 1;
+        while(!prices.isEmpty() && prices.peek() <= price){
+            prices.pop();
+            span+=spans.pop();
+        }
+
+        prices.push(price);
+        spans.push(span);
+
+        return span;
+    }
+}
+
+/**
+ * Your StockSpanner object will be instantiated and called as such:
+ * StockSpanner obj = new StockSpanner();
+ * int param_1 = obj.next(price);
+ */
+
+ // 100 80 60 70 60 75 85
+ // today price 75
+ // check right to left - 75 60 70 60 --> span = 4
+ // 1 1 1 2 1 4 6
+
+ //monotonic stack
